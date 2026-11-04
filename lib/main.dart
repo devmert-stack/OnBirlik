@@ -1,16 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'giris_sayfasi.dart';
 import 'lig_sayfalari.dart';
+import 'tutorial_ekrani.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   try {
-    // options parametresini ekleyerek platform ayarlarını doğrudan bağlayın
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -18,21 +19,33 @@ Future<void> main() async {
     debugPrint("Firebase başlatma hatası: $e");
   }
 
-  runApp(const FutbolYoneticisiApp());
+  // Tutorial'ın daha önce tamamlanıp tamamlanmadığını kontrol et
+  final prefs = await SharedPreferences.getInstance();
+  final bool tutorialGoruldu = prefs.getBool('tutorial_goruldu') ?? false;
+
+  runApp(FutbolYoneticisiApp(tutorialGoruldu: tutorialGoruldu));
 }
 
 class FutbolYoneticisiApp extends StatelessWidget {
-  const FutbolYoneticisiApp({super.key});
+  final bool tutorialGoruldu;
+
+  const FutbolYoneticisiApp({super.key, required this.tutorialGoruldu});
 
   @override
   Widget build(BuildContext context) {
+    const authKapisi = AuthKapisi();
+
     return MaterialApp(
       title: 'Futbol Yöneticisi',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const AuthKapisi(),
+      // İlk defa açılıyorsa TutorialEkrani, daha önce görüldüyse doğrudan AuthKapisi
+      home: tutorialGoruldu
+          ? authKapisi
+          : const TutorialEkrani(sonrakiSayfa: authKapisi),
     );
   }
 }
@@ -47,7 +60,9 @@ class AuthKapisi extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         }
         if (snapshot.hasData) return const AnaSayfa();
         return const GirisSayfasi();
