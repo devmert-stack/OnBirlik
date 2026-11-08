@@ -36,12 +36,12 @@ jobs:
           cd build/ios/iphoneos
           mkdir -p Payload
           cp -r Runner.app Payload/
-          zip -r app-release.ipa Payload
+          zip -r OnBirlik.ipa Payload
         shell: bash
 
       - name: IPA Dosyasını Çıktı Olarak Yükle
         uses: actions/upload-artifact@v4
         with:
-          name: flutter-ios-ipa
-          path: build/ios/iphoneos/app-release.ipa
+          name: OnBirlik
+          path: build/ios/iphoneos/OnBirlik.ipa
           retention-days: 3

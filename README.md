@@ -1,17 +1,25 @@
-# futbol_yoneticisi
+# OnBirlik
 
-A new Flutter project.
+Modern ve dinamik bir futbol takım & lig yönetim mobil uygulaması.
 
-## Getting Started
+## 🚀 Proje Hakkında
+OnBirlik; kullanıcıların kendi futbol takımlarını kurmalarına, oyuncu kadrolarını yönetmelerine, özel draft ligleri oluşturmalarına ve taktiksel saha dizilişlerini planlamalarına olanak tanıyan kapsamlı bir mobil futbol yönetim platformudur.
 
-This project is a starting point for a Flutter application.
+## 🛠️ Kullanılan Teknolojiler
+- **Framework:** Flutter / Dart
+- **Backend & Veritabanı:** Firebase Authentication, Cloud Firestore
+- **Yerel Depolama:** SharedPreferences
+- **CI/CD:** GitHub Actions (Otomatik APK & IPA Derleme)
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 Özellikler
+- Kullanıcı kaydı ve güvenli giriş sistemi
+- İnteraktif ilk açılış rehberi (Tutorial akışı)
+- Özel kadro kurma ve 11 belirleme arayüzü
+- Gerçek zamanlı veri senkronizasyonu
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## ⚙️ Kurulum ve Çalıştırma
+Projeyi yerel ortamda çalıştırmak için:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
