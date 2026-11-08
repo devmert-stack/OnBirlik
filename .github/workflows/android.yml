@@ -36,8 +36,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: APK'yı Artifact Olarak Kaydet
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: OnBirlik
-          path: build/app/outputs/flutter-apk/OnBirlik.apk
+          name: OnBirlik-Release-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
